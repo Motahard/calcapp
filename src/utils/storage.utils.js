@@ -1,9 +1,22 @@
 export const clearHistoryLS = () => {
-    localStorage.setItem('history', JSON.stringify([]))
+    localStorage.setItem('cl', JSON.stringify([]))
+    localStorage.setItem('fc', JSON.stringify([]))
 }
-export const getHistoryLS = () => {
-    const history = localStorage.getItem('history')
-    return history
+export const getHistoryLS = type => {
+    if(type === 'fc') {
+        return localStorage.getItem('fc')
+    } else if (type === 'cl') {
+        return localStorage.getItem('cl')
+    }
+}
+export const setHistoryLS = type => history => {
+    const historyLS = getHistoryLS(type)
+    if (!historyLS) {
+        localStorage.setItem(type, JSON.stringify([history]))
+    } else {
+        const ls = JSON.parse(historyLS)
+        localStorage.setItem(type, JSON.stringify([...ls, history]))
+    }
 }
 export const setThemeLS = theme => {
     const toStore = JSON.stringify(theme)
@@ -13,14 +26,4 @@ export const setThemeLS = theme => {
 export const getThemeLS = () => {
     const theme = localStorage.getItem('theme')
     return JSON.parse(theme)
-}
-
-export const setHistoryLS = history => {
-    const historyLS = getHistoryLS()
-    if (!historyLS) {
-        localStorage.setItem('history', JSON.stringify([history]))
-    } else {
-        const ls = JSON.parse(historyLS)
-        localStorage.setItem('history', JSON.stringify([...ls, history]))
-    }
 }

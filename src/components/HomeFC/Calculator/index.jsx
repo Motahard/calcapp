@@ -6,14 +6,13 @@ import Display from '@/components/HomeFC/Display'
 import Keypad from '@/components/HomeFC/Keypad'
 import History from '@/components/HomeFC/History'
 import ControlPanel from '@/components/HomeFC/ControlPanel'
-
 import {
   CalculatorContainer,
   KeypadDisplayContainer,
   HistoryControlContainer,
 } from '@/components/HomeFC/Calculator/components'
 
-const Calculator = ({ history, setHistory }) => {
+const Calculator = ({ historyFC, setHistoryFC }) => {
   const [value, setValue] = useState('')
   const [result, setResult] = useState('0')
   const [operator, setOperator] = useState('')
@@ -30,8 +29,8 @@ const Calculator = ({ history, setHistory }) => {
         <Keypad
           result={result}
           setResult={setResult}
-          history={history}
-          setHistory={setHistory}
+          history={historyFC}
+          setHistory={setHistoryFC}
           value={value}
           setValue={setValue}
           operator={operator}
@@ -45,7 +44,7 @@ const Calculator = ({ history, setHistory }) => {
       {showHistory ? (
         <HistoryControlContainer>
           <History
-            history={history}
+            history={historyFC}
             showHistory={showHistory}
           />
         </HistoryControlContainer>
@@ -55,8 +54,8 @@ const Calculator = ({ history, setHistory }) => {
 }
 
 Calculator.propTypes = {
-  history: PropTypes.array,
-  setHistory: PropTypes.func,
+  historyFC: PropTypes.array,
+  setHistoryFC: PropTypes.func,
 }
 
 export default Calculator

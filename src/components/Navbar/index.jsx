@@ -1,13 +1,13 @@
 import React from 'react'
 
+import { routes } from '@/constants'
+
 import {
   Navbar,
   NavTitle,
   NavList,
   NavItem,
 } from '@/components/Navbar/components'
-
-import { routes } from '@/constants'
 
 export default () => (
   <Navbar>

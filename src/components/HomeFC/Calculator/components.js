@@ -8,7 +8,7 @@ export const CalculatorContainer = styled.div`
     height: ${props => props.theme.sizeHeight.med}px;
     background-color: ${props => props.theme.colors.primaryBackColor};
     color: ${props => props.theme.colors.primaryFontColor};
-    margin-top: 2rem;
+    margin-top: ${props => props.theme.spaces[4]}px;
     border-radius: 10px;
 `
 

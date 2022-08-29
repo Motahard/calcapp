@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {
   DisplayExpression,
   DisplayValue,
+  DisplayResult,
 } from '@/components/HomeFC/Display/components'
 
 const Display = ({ value, result, operator }) => {
@@ -13,7 +14,7 @@ const Display = ({ value, result, operator }) => {
       <DisplayValue>
         {displayValue !== '' && displayValue + operator}
       </DisplayValue>
-      <p id="display">{result}</p>
+      <DisplayResult id="display">{result}</DisplayResult>
     </DisplayExpression>
   )
 }

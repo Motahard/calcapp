@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { v4 as uuid } from 'uuid'
 
 import {
   HistoryContainer,
@@ -9,13 +10,16 @@ import {
 
 const History = ({ history, showHistory }) => {
   const displayHistory = [...history].reverse()
+
   if (!showHistory) return null
   return (
     <HistoryContainer id="history">
       <HistoryName>History</HistoryName>
       {displayHistory.length > 0 &&
-        displayHistory.map((item, ind) => (
-          <HistoryElement key={ind}>{item}</HistoryElement>
+        displayHistory.map(item => (
+          <HistoryElement key={uuid()}>
+            {item}
+          </HistoryElement>
         ))}
     </HistoryContainer>
   )

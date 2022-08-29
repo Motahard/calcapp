@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ButtonArrow } from './components'
+
+import { ButtonArrow } from '@/components/HomeFC/ControlPanel/components'
 
 const ControlPanel = ({ showHistory, setShowHistory }) => {
   const handleClick = () => {

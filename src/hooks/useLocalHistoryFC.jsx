@@ -6,7 +6,7 @@ export const useLocalHistoryFC = () => {
   const [historyFC, setHistoryFC] = useState([])
 
   useEffect(() => {
-    const history = JSON.parse(getHistoryLS())
+    const history = JSON.parse(getHistoryLS('fc'))
     if (history && history.length) setHistoryFC(history)
   }, [])
 

@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
+import { operationsAndNumbers } from '@/utils'
+import { setHistoryLS } from '@/utils/storage.utils'
+import { buttonHandler } from '@/utils/calculate.utils'
+
 import {
   KeypadContainer,
   KeypadButton,
 } from '@/components/HomeFC/Keypad/components'
 
-import { operationsAndNumbers } from '@/utils'
-import { setHistoryLS } from '@/utils/storage.utils'
-import { buttonHandler } from '@/utils/calculate.utils'
+const setHistoryLSBounded = setHistoryLS('fc')
 
 const Keypad = ({
   result,
@@ -69,7 +71,10 @@ const Keypad = ({
           if (Number(result) === 0 && Number(value) === 0)
             return
           const res = handleEqual(operator)
-          res && setValue(res)
+          if (res) {
+            setValue(res)
+            setResult(res)
+          }
           setOperator(val)
           setTouched(false)
         }
@@ -85,6 +90,7 @@ const Keypad = ({
       case 'C': {
         const res = buttonHandler(objState)
         setResult(res)
+        res === '0' && setExpression(false)
         break
       }
       case '=': {
@@ -105,57 +111,6 @@ const Keypad = ({
         setResult(res)
       }
     }
-    // if (val === '+/-') {
-    //   if (expression) return
-    //   const res = buttonHandler(objState).toString()
-    //   setResult(res)
-    // } else if (val === '.') {
-    //   buttonHandler(objState) && setResult(result + val)
-    // } else if (val === '(') {
-    //   setTouched(true)
-    //   setExpression(true)
-    //   setResult(val)
-    // } else if (val === ')') {
-    //   buttonHandler(objState) && setResult(result + val)
-    // } else if (val.match(/[*+/-%/]/)) {
-    //   if (expression) {
-    //     const res = buttonHandler(objState)
-    //     setResult(res)
-    //   } else if (!operator) {
-    //     setOperator(val)
-    //     setValue(result)
-    //     setTouched(false)
-    //   } else {
-    //     if (Number(result) === 0 && Number(value) === 0)
-    //       return
-    //     const res = handleEqual(operator)
-    //     res && setValue(res)
-    //     setOperator(val)
-    //     setTouched(false)
-    //   }
-    // } else if (val === 'CE') {
-    //   setResult('0')
-    //   setValue('')
-    //   setOperator('')
-    //   setExpression(false)
-    // } else if (val === 'C') {
-    //   const res = buttonHandler(objState)
-    //   setResult(res)
-    // } else if (val === '=') {
-    //   const res = handleEqual(val)
-    //   res && setResult(res)
-    //   setOperator('')
-    //   setValue('')
-    //   setTouched(false)
-    // } else {
-    //   if (!touched) {
-    //     setResult(val)
-    //     setTouched(true)
-    //     return
-    //   }
-    //   const res = buttonHandler(objState)
-    //   setResult(res)
-    // }
   }
 
   const handleEqual = button => {
@@ -181,7 +136,7 @@ const Keypad = ({
     setTouched(false)
     setValue('')
     setHistory([...history, strHistory])
-    setHistoryLS(strHistory)
+    setHistoryLSBounded(strHistory)
     return res
   }
 

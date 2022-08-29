@@ -13,3 +13,5 @@ export const DisplayValue = styled.p`
     font-size: ${props => props.theme.fontSizes[2]}px;
     color: ${props => props.theme.colors.primaryFontColor}
 `
+
+export const DisplayResult = styled.p``

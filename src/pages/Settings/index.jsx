@@ -2,6 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {
+  clearHistoryLS,
+  setThemeLS,
+} from '@/utils/storage.utils'
+import { themes } from '@/theme'
+
+import {
   Container,
   SettingsTitle,
   SettingTheme,
@@ -9,12 +15,6 @@ import {
   OptionTheme,
   ButtonClearHistory,
 } from '@/pages/Settings/components'
-import {
-  clearHistoryLS,
-  setThemeLS,
-} from '@/utils/storage.utils'
-
-import { themes } from '@/theme'
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -34,6 +34,7 @@ class SettingsPage extends React.Component {
 
   handleClearHistory = () => {
     this.props.setHistoryFC([])
+    this.props.setHistoryCL([])
     clearHistoryLS()
   }
 
@@ -47,9 +48,9 @@ class SettingsPage extends React.Component {
             value={this.state.themeValue}
             onChange={this.handleChange}
           >
-            {themes.map(i => (
-              <OptionTheme key={i.id} value={i.val}>
-                {i.description}
+            {themes.map(item => (
+              <OptionTheme key={item.id} value={item.val}>
+                {item.description}
               </OptionTheme>
             ))}
           </SelectTheme>
@@ -70,6 +71,7 @@ SettingsPage.propTypes = {
   changeThemeValue: PropTypes.func,
   themeValue: PropTypes.string,
   setHistoryFC: PropTypes.func,
+  setHistoryCL: PropTypes.func,
 }
 
 export default SettingsPage
