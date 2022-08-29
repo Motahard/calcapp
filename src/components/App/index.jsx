@@ -19,9 +19,9 @@ import Navigation from '@/components/Navbar'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { AppContainer } from '@/components/App/components'
 
-import HomePageCL from '@/pages/HomeCL'
 const HomePageFC = lazy(() => import('@/pages/HomeFC'))
 const SettingsPage = lazy(() => import('@/pages/Settings'))
+const HomePageCL = lazy(() => import('@/pages/HomeCL'))
 
 export default () => {
   const [historyFC, setHistoryFC] = useLocalHistoryFC()
