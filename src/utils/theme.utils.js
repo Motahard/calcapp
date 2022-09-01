@@ -2,7 +2,7 @@ import {
     lightTheme,
     darkTheme,
     coloredTheme,
-  } from '@/theme'
+  } from '@/theme/theme'
 
 export const handleTheme = theme => {
     switch (theme) {

@@ -5,7 +5,7 @@ import {
   DisplayExpression,
   DisplayValue,
   DisplayResult,
-} from '@/components/HomeFC/Display/components'
+} from '@/components/HomeFC/Display/styled'
 
 const Display = ({ value, result, operator }) => {
   const displayValue = value.toString()

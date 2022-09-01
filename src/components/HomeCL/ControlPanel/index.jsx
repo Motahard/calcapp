@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { ButtonArrow } from '@/components/HomeCL/ControlPanel/components'
+import { ButtonArrow } from '@/components/HomeFC/ControlPanel/styled'
 
 export default class ControlPanel extends Component {
   constructor(props) {
@@ -17,12 +17,10 @@ export default class ControlPanel extends Component {
   render() {
     const { showHistory } = this.props
     return (
-      <div>
-        <ButtonArrow
-          right={showHistory}
-          onClick={this.handleClick}
-        />
-      </div>
+      <ButtonArrow
+        right={showHistory}
+        onClick={this.handleClick}
+      />
     )
   }
 }

@@ -1,6 +1,6 @@
-export const clearHistoryLS = () => {
-    localStorage.setItem('cl', JSON.stringify([]))
-    localStorage.setItem('fc', JSON.stringify([]))
+export const clearHistoryLS = type => {
+    localStorage.setItem(type, JSON.stringify([]))
+    localStorage.setItem(type, JSON.stringify([]))
 }
 export const getHistoryLS = type => {
     if(type === 'fc') {

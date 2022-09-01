@@ -10,7 +10,7 @@ import {
   CalculatorContainer,
   KeypadDisplayContainer,
   HistoryControlContainer,
-} from '@/components/HomeFC/Calculator/components'
+} from '@/components/HomeFC/Calculator/styled'
 
 const Calculator = ({ historyFC, setHistoryFC }) => {
   const [value, setValue] = useState('')
@@ -41,14 +41,15 @@ const Calculator = ({ historyFC, setHistoryFC }) => {
           setShowHistory={setShowHistory}
         />
       </KeypadDisplayContainer>
-      {showHistory ? (
+      {showHistory && (
         <HistoryControlContainer>
           <History
             history={historyFC}
             showHistory={showHistory}
+            setHistory={setHistoryFC}
           />
         </HistoryControlContainer>
-      ) : null}
+      )}
     </CalculatorContainer>
   )
 }

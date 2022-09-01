@@ -1,12 +1,12 @@
 import styled from "styled-components"
 
 export const KeypadContainer = styled.div`
+    padding: ${props => props.theme.spaces[3]}px;
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: ${props => props.theme.spaces[3]}px ${props => props.theme.spaces[4]}px;
-    padding: ${props => props.theme.spaces[3]}px;
     border-top: 2px solid ${props => props.theme.colors.secondaryBackColor};
-    height: 100%;
     & > input:last-of-type {
         grid-column: 2 / -1;
     }

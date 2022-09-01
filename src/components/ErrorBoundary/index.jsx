@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { ErrorText } from '@/components/ErrorBoundary/components'
+import { ErrorText } from '@/components/ErrorBoundary/styled'
 
 export class ErrorBoundary extends Component {
   constructor(props) {
@@ -9,10 +9,7 @@ export class ErrorBoundary extends Component {
   }
 
   static getDerivedStateFromError(error) {
-    console.log(error)
-    return {
-      hasError: true,
-    }
+    return { hasError: true }
   }
 
   componentDidCatch(error, info) {

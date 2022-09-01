@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Loader } from './components'
+import { Loader } from '@/components/Loader/styled'
 
-const LOADER_SIZE = 100
+import { LOADER_SIZE } from '@/constants/index'
 
 export default () => {
   return (

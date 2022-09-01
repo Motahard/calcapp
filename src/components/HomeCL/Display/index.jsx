@@ -5,7 +5,7 @@ import {
   DisplayExpression,
   DisplayValue,
   DisplayResult,
-} from '@/components/HomeCL/Display/components'
+} from '@/components/HomeFC/Display/styled'
 
 export default class Display extends Component {
   constructor(props) {

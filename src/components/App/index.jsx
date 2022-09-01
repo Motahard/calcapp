@@ -2,8 +2,10 @@ import React, { lazy, Suspense } from 'react'
 import { useLocalTheme } from '@/hooks/useLocalTheme'
 import { useLocalHistoryFC } from '@/hooks/useLocalHistoryFC'
 import { useLocalHistoryCL } from '@/hooks/useLocalHistoryCL'
+import { CalculatorFuncContext } from '@/context/CalculatorFunc.context'
+import { CalculatorClassContext } from '@/context/CalculatorClass.context'
 
-import { Switch, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
 import {
@@ -11,13 +13,13 @@ import {
   HOMECL_PAGE_ROUTE,
   SETTINGS_PAGE_ROUTE,
 } from '@/constants'
-import themeStyled from '@/theme'
+import themeStyled from '@/theme/theme'
 import { handleTheme } from '@/utils/theme.utils'
 
 import Loader from '@/components/Loader'
 import Navigation from '@/components/Navbar'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
-import { AppContainer } from '@/components/App/components'
+import { AppContainer } from '@/components/App/styled'
 
 const HomePageFC = lazy(() => import('@/pages/HomeFC'))
 const SettingsPage = lazy(() => import('@/pages/Settings'))
@@ -29,36 +31,51 @@ export default () => {
   const [theme, setTheme] = useLocalTheme()
   const themeColor = handleTheme(theme)
 
+  const themeObj = {
+    colors: themeColor,
+    ...themeStyled,
+  }
   return (
-    <ThemeProvider
-      theme={{ colors: themeColor, ...themeStyled }}
-    >
+    <ThemeProvider theme={themeObj}>
       <ErrorBoundary>
         <Navigation />
         <AppContainer>
           <Suspense fallback={<Loader />}>
-            <Switch>
-              <Route exact path={HOME_PAGE_ROUTE}>
-                <HomePageFC
-                  historyFC={historyFC}
-                  setHistoryFC={setHistoryFC}
-                />
-              </Route>
-              <Route exact path={HOMECL_PAGE_ROUTE}>
-                <HomePageCL
-                  historyCL={historyCL}
-                  setHistoryCL={setHistoryCL}
-                />
-              </Route>
-              <Route path={SETTINGS_PAGE_ROUTE}>
-                <SettingsPage
-                  changeThemeValue={setTheme}
-                  themeValue={theme}
-                  setHistoryFC={setHistoryFC}
-                  setHistoryCL={setHistoryCL}
-                />
-              </Route>
-            </Switch>
+            <Routes>
+              <Route
+                path={HOME_PAGE_ROUTE}
+                element={
+                  <CalculatorFuncContext.Provider value="hi">
+                    <HomePageFC
+                      historyFC={historyFC}
+                      setHistoryFC={setHistoryFC}
+                    />
+                  </CalculatorFuncContext.Provider>
+                }
+              />
+              <Route
+                path={HOMECL_PAGE_ROUTE}
+                element={
+                  <CalculatorClassContext.Provider value="bye">
+                    <HomePageCL
+                      historyCL={historyCL}
+                      setHistoryCL={setHistoryCL}
+                    />
+                  </CalculatorClassContext.Provider>
+                }
+              />
+              <Route
+                path={SETTINGS_PAGE_ROUTE}
+                element={
+                  <SettingsPage
+                    changeThemeValue={setTheme}
+                    themeValue={theme}
+                    setHistoryFC={setHistoryFC}
+                    setHistoryCL={setHistoryCL}
+                  />
+                }
+              />
+            </Routes>
           </Suspense>
         </AppContainer>
       </ErrorBoundary>

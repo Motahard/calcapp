@@ -9,10 +9,40 @@ import {
 
 const calculator = new CalculatorFunc()
 
-export const operationsAndNumbers = ['C', '7', '8', '9', '*', '-', '4', '5', '6', '/', '+', '1', '2', '3', '+/-', '.', '(', '0', ')', 'CE', '%', '=']
+const hasPrecedence = (op1, op2) => {
+    if (op2 === '(' || op2 === ')') {
+        return false
+    }
+    if ((op1 === '*' || op1 === '/' || op1 === '%') && (op2 === '+' || op2 === '-')) {
+        return false
+    }
+    return true
+}
 
-const calculate = s => {
-    if (!Number.isNaN(parseFloat(s))) return s
+const applyOp = (op, b, a) => {
+    if (!a) {
+        return 0
+    }
+    switch (op) {
+        case '+':
+            return parseFloat((a + b).toFixed(3))
+        case '-':
+            return parseFloat((a - b).toFixed(3))
+        case '*':
+            return parseFloat((a * b).toFixed(3))
+        case '/':
+            if (b === 0) {
+                throw new Error('Cannot divide by zero')
+            }
+            return parseFloat((a / b).toFixed(3))
+        case '%':
+            return parseFloat((a % b).toFixed(3))
+    }
+    return 0
+}
+
+export const calculate = s => {
+    if (!isNaN(parseFloat(s))) return s
     const values = []
     const ops = []
     let negNumber = ''
@@ -57,39 +87,7 @@ const calculate = s => {
     return values.pop()
 }
 
-const hasPrecedence = (op1, op2) => {
-    if (op2 === '(' || op2 === ')') {
-        return false
-    }
-    if ((op1 === '*' || op1 === '/' || op1 === '%') && (op2 === '+' || op2 === '-')) {
-        return false
-    }
-    return true
-}
-
-const applyOp = (op, b, a) => {
-    if (!a) {
-        return 0
-    }
-    switch (op) {
-        case '+':
-            return parseFloat((a + b).toFixed(3))
-        case '-':
-            return parseFloat((a - b).toFixed(3))
-        case '*':
-            return parseFloat((a * b).toFixed(3))
-        case '/':
-            if (b === 0) {
-                throw new Error('Cannot divide by zero')
-            }
-            return parseFloat((a / b).toFixed(3))
-        case '%':
-            return parseFloat((a % b).toFixed(3))
-    }
-    return 0
-}
-
-const calculateRes = (val, ress, operator) => {
+export const calculateRes = (val, ress, operator) => {
     calculator.setInitValue(val)
     switch (operator) {
       case '-': {
@@ -115,8 +113,4 @@ const calculateRes = (val, ress, operator) => {
     }
   }
 
-export { 
-    calculate, 
-    calculateRes,
-}
-
+export const operationsAndNumbers = ['C', '7', '8', '9', '*', '-', '4', '5', '6', '/', '+', '1', '2', '3', '+/-', '.', '(', '0', ')', 'CE', '%', '=']

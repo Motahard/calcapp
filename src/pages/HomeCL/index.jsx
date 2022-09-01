@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import Calculator from '@/components/HomeCL/Calculator'
 
-class HomePageCL extends React.Component {
+class HomePageCL extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
   }
 
   render() {

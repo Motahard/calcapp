@@ -8,7 +8,7 @@ import { buttonHandler } from '@/utils/calculate.utils'
 import {
   KeypadContainer,
   KeypadButton,
-} from '@/components/HomeCL/Keypad/components'
+} from '@/components/HomeFC/Keypad/styled'
 
 const setHistoryLSBounded = setHistoryLS('cl')
 
@@ -139,7 +139,10 @@ export default class Keypad extends Component {
       this.setState({ expression: false })
     } else if (!operator) {
       return
-    } else if (result === '0' && operator === '/') {
+    } else if (
+      result === '0' &&
+      (operator === '/' || operator === '%')
+    ) {
       setResult('0')
       alert('Cannot divide by zero')
       return
@@ -155,7 +158,7 @@ export default class Keypad extends Component {
 
     if (!res) return
 
-    const strHistory = value + operator + result + '=' + res
+    const strHistory = `${value} ${operator} ${result} = ${res}`
     this.setState({ touched: false })
     setValue('')
     setHistory([...history, strHistory])

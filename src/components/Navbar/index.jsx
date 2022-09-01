@@ -7,22 +7,19 @@ import {
   NavTitle,
   NavList,
   NavItem,
-} from '@/components/Navbar/components'
+} from '@/components/Navbar/styled'
 
-export default () => (
-  <Navbar>
-    <NavTitle>Calculator App</NavTitle>
-    <NavList>
-      {routes.map(item => (
-        <NavItem
-          id={item.description}
-          key={item.id}
-          to={item.path}
-          exact
-        >
-          {item.description}
-        </NavItem>
-      ))}
-    </NavList>
-  </Navbar>
-)
+export default () => {
+  return (
+    <Navbar>
+      <NavTitle>Calculator App</NavTitle>
+      <NavList>
+        {routes.map(({ description, id, path }) => (
+          <NavItem id={description} key={id} to={path}>
+            {description}
+          </NavItem>
+        ))}
+      </NavList>
+    </Navbar>
+  )
+}

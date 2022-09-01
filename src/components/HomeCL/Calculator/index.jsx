@@ -10,7 +10,7 @@ import {
   CalculatorContainer,
   KeypadDisplayContainer,
   HistoryControlContainer,
-} from '@/components/HomeCL/Calculator/components'
+} from '@/components/HomeFC/Calculator/styled'
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -21,31 +21,27 @@ export default class Calculator extends Component {
       operator: '',
       showHistory: true,
     }
-    this.setResult = this.handleResult.bind(this)
-    this.setValue = this.handleValue.bind(this)
-    this.setOperator = this.handleOperator.bind(this)
-    this.setShowHistory = this.handleShowHistory.bind(this)
   }
 
-  handleResult = value => {
+  setResult = value => {
     this.setState({
       result: value,
     })
   }
 
-  handleValue = value => {
+  setValue = value => {
     this.setState({
       value: value,
     })
   }
 
-  handleOperator = value => {
+  setOperator = value => {
     this.setState({
       operator: value,
     })
   }
 
-  handleShowHistory = value => {
+  setShowHistory = value => {
     this.setState({
       showHistory: value,
     })
@@ -82,14 +78,15 @@ export default class Calculator extends Component {
             setShowHistory={this.setShowHistory}
           />
         </KeypadDisplayContainer>
-        {showHistory ? (
+        {showHistory && (
           <HistoryControlContainer>
             <History
               history={historyCL}
+              setHistory={setHistoryCL}
               showHistory={showHistory}
             />
           </HistoryControlContainer>
-        ) : null}
+        )}
       </CalculatorContainer>
     )
   }

@@ -5,7 +5,7 @@ import {
   clearHistoryLS,
   setThemeLS,
 } from '@/utils/storage.utils'
-import { themes } from '@/theme'
+import { themes } from '@/theme/theme'
 
 import {
   Container,
@@ -14,7 +14,8 @@ import {
   SelectTheme,
   OptionTheme,
   ButtonClearHistory,
-} from '@/pages/Settings/components'
+  ButtonContainer,
+} from '@/pages/Settings/styled'
 
 class SettingsPage extends React.Component {
   constructor(props) {
@@ -35,14 +36,15 @@ class SettingsPage extends React.Component {
   handleClearHistory = () => {
     this.props.setHistoryFC([])
     this.props.setHistoryCL([])
-    clearHistoryLS()
+    clearHistoryLS('fc')
+    clearHistoryLS('cl')
   }
 
   render() {
     return (
       <Container>
         <SettingsTitle>Settings</SettingsTitle>
-        <div>
+        <ButtonContainer>
           <SettingTheme>Switch Theme</SettingTheme>
           <SelectTheme
             value={this.state.themeValue}
@@ -54,14 +56,14 @@ class SettingsPage extends React.Component {
               </OptionTheme>
             ))}
           </SelectTheme>
-        </div>
-        <div>
+        </ButtonContainer>
+        <ButtonContainer>
           <ButtonClearHistory
             onClick={this.handleClearHistory}
           >
             Clear All History
           </ButtonClearHistory>
-        </div>
+        </ButtonContainer>
       </Container>
     )
   }

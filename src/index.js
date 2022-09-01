@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 
-import GlobalStyles from '@/globalStyles'
+import GlobalStyles from '@/theme/globalStyles'
 
 import Application from '@/components/App'
 
