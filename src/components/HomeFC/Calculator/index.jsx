@@ -21,10 +21,13 @@ const Calculator = ({ history, setHistory }) => {
   const [showHistory, setShowHistory] = useState(true)
 
   useEffect(() => {
-    const { value, result, operator } = getStateLS('fc')
-    setValue(value)
-    setResult(result)
-    setOperator(operator)
+    const stateLS = getStateLS('fc')
+    if (stateLS) {
+      const { value, result, operator } = stateLS
+      setValue(value)
+      setResult(result)
+      setOperator(operator)
+    }
   }, [])
 
   return (

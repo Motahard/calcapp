@@ -30,9 +30,12 @@ const Keypad = ({
   const [expression, setExpression] = useState(false)
 
   useEffect(() => {
-    const { expression, touched } = getStateLS('fc')
-    setTouched(touched)
-    setExpression(expression)
+    const stateLS = getStateLS('fc')
+    if (stateLS) {
+      const { expression, touched } = stateLS
+      setTouched(touched)
+      setExpression(expression)
+    }
   }, [])
 
   useEffect(() => {
