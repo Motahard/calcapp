@@ -7,7 +7,7 @@ import {
   NavTitle,
   NavList,
   NavItem,
-} from '@/components/Navbar/styled'
+} from '@/components/Header/styled'
 
 export default () => {
   return (

@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { operationsAndNumbers } from '@/utils'
-import { setHistoryLS } from '@/utils/storage.utils'
+import {
+  setHistoryLS,
+  setStateLS,
+  getStateLS,
+} from '@/utils/storage.utils'
 import { buttonHandler } from '@/utils/calculate.utils'
 
 import {
@@ -24,6 +28,25 @@ const Keypad = ({
 }) => {
   const [touched, setTouched] = useState(false)
   const [expression, setExpression] = useState(false)
+
+  useEffect(() => {
+    const { expression, touched } = getStateLS('fc')
+    setTouched(touched)
+    setExpression(expression)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      const stateToLocalStorage = {
+        result,
+        operator,
+        value,
+        expression,
+        touched,
+      }
+      setStateLS('fc', stateToLocalStorage)
+    }
+  }, [result, value, operator, touched, expression])
 
   const handleClick = e => {
     const val = e.target.value
@@ -114,9 +137,7 @@ const Keypad = ({
   }
 
   const handleEqual = button => {
-    if (expression) {
-      setExpression(false)
-    } else if (!operator) {
+    if (!operator) {
       return
     } else if (
       result === '0' &&
@@ -126,6 +147,7 @@ const Keypad = ({
       alert('Cannot divide by zero')
       return
     }
+
     const res = buttonHandler({
       val: button,
       result,
@@ -133,7 +155,12 @@ const Keypad = ({
       expression,
       operator,
     })
+
     if (!res) return
+    if (expression) {
+      setExpression(false)
+    }
+
     const strHistory = `${value} ${operator} ${result} = ${res}`
 
     setTouched(false)

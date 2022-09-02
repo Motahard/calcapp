@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { getThemeLS } from '@/utils/storage.utils'
 
-export const useLocalTheme = () => {
+export const useLocalThemeColor = () => {
   const [theme, setTheme] = useState('light')
 
   useEffect(() => {

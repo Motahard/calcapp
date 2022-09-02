@@ -27,3 +27,13 @@ export const getThemeLS = () => {
     const theme = localStorage.getItem('theme')
     return JSON.parse(theme)
 }
+
+export const setStateLS = (type, state) => {
+    const toStore = JSON.stringify(state)
+    localStorage.setItem(`${type}-state`, toStore)
+}
+
+export const getStateLS = type => {
+    const state = localStorage.getItem(`${type}-state`)
+    return JSON.parse(state)
+}

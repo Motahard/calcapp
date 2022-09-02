@@ -21,7 +21,7 @@ class SettingsPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      themeValue: this.props.themeValue,
+      themeValue: this.props.themeColor,
     }
   }
 
@@ -29,30 +29,32 @@ class SettingsPage extends React.Component {
     const { value } = event.target
     this.setState({ themeValue: value }, () => {
       setThemeLS(value)
-      this.props.changeThemeValue(value)
+      this.props.setThemeColor(value)
     })
   }
 
   handleClearHistory = () => {
-    this.props.setHistoryFC([])
-    this.props.setHistoryCL([])
+    const { setHistoryFC, setHistoryCL } = this.props
+    setHistoryFC([])
+    setHistoryCL([])
     clearHistoryLS('fc')
     clearHistoryLS('cl')
   }
 
   render() {
+    const { themeValue } = this.state
     return (
       <Container>
         <SettingsTitle>Settings</SettingsTitle>
         <ButtonContainer>
           <SettingTheme>Switch Theme</SettingTheme>
           <SelectTheme
-            value={this.state.themeValue}
+            value={themeValue}
             onChange={this.handleChange}
           >
-            {themes.map(item => (
-              <OptionTheme key={item.id} value={item.val}>
-                {item.description}
+            {themes.map(({ id, val, description }) => (
+              <OptionTheme key={id} value={val}>
+                {description}
               </OptionTheme>
             ))}
           </SelectTheme>
@@ -70,8 +72,8 @@ class SettingsPage extends React.Component {
 }
 
 SettingsPage.propTypes = {
-  changeThemeValue: PropTypes.func,
-  themeValue: PropTypes.string,
+  setThemeColor: PropTypes.func,
+  themeColor: PropTypes.string,
   setHistoryFC: PropTypes.func,
   setHistoryCL: PropTypes.func,
 }

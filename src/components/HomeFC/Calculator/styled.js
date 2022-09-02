@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 export const CalculatorContainer = styled.div`
     margin: auto;
-    margin-top: ${props => props.theme.spaces[4]}px;
     padding: ${props => props.theme.spaces[3]}px;
     max-width: ${props => props.theme.sizeWidth.large}px;
     height: ${props => props.theme.sizeHeight.med}px;

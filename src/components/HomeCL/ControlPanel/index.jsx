@@ -6,7 +6,6 @@ import { ButtonArrow } from '@/components/HomeFC/ControlPanel/styled'
 export default class ControlPanel extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
   }
 
   handleClick = () => {

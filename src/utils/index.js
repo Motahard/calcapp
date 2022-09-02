@@ -41,7 +41,7 @@ const applyOp = (op, b, a) => {
     return 0
 }
 
-export const calculate = s => {
+export const calculateExpression = s => {
     if (!isNaN(parseFloat(s))) return s
     const values = []
     const ops = []
@@ -87,7 +87,7 @@ export const calculate = s => {
     return values.pop()
 }
 
-export const calculateRes = (val, ress, operator) => {
+export const calculateResult = (val, ress, operator) => {
     calculator.setInitValue(val)
     switch (operator) {
       case '-': {

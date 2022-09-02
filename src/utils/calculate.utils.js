@@ -1,4 +1,4 @@
-import { calculate, calculateRes } from "@/utils"
+import { calculateExpression, calculateResult } from "@/utils"
 
 const handleEqualButton = (val, result, value, expression, operator) => {
   const resArr = result.toString().split('')
@@ -8,24 +8,24 @@ const handleEqualButton = (val, result, value, expression, operator) => {
       result.toString().indexOf(')') === -1) ||
     lastChar.match(/[*+\-%/]/)
   ) return undefined
-else if (expression) {
+  else if (expression) {
     let calculatedExpVal = 0
     if (value && value !== 0) {
-        calculatedExpVal = calculate(value)
+        calculatedExpVal = calculateExpression(value)
     }
-    const calculatedExpRes = calculate(result).toString()
+    const calculatedExpRes = calculateExpression(result).toString()
     if (value === 0 || !value) {
         return calculatedExpRes
     }
-    return calculateRes(
+    return calculateResult(
         calculatedExpVal,
         calculatedExpRes,
         operator,
     )
 } 
-else {
-    return calculateRes(value, result, operator)
-}
+  else {
+      return calculateResult(value, result, operator)
+  }
 }
 
 export const buttonHandler = ({ val, result, value, expression, operator}) => {

@@ -4,7 +4,7 @@ import {
     coloredTheme,
   } from '@/theme/theme'
 
-export const handleTheme = theme => {
+export const handleThemeColor = theme => {
     switch (theme) {
       case 'light':
         return lightTheme

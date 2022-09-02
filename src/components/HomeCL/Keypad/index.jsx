@@ -2,7 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { operationsAndNumbers } from '@/utils'
-import { setHistoryLS } from '@/utils/storage.utils'
+import {
+  getStateLS,
+  setHistoryLS,
+  setStateLS,
+} from '@/utils/storage.utils'
 import { buttonHandler } from '@/utils/calculate.utils'
 
 import {
@@ -135,9 +139,7 @@ export default class Keypad extends Component {
     } = this.props
     const { expression } = this.state
 
-    if (expression) {
-      this.setState({ expression: false })
-    } else if (!operator) {
+    if (!operator) {
       return
     } else if (
       result === '0' &&
@@ -157,13 +159,40 @@ export default class Keypad extends Component {
     })
 
     if (!res) return
-
+    if (expression) {
+      this.setState({ expression: false })
+    }
+    console.log(res)
     const strHistory = `${value} ${operator} ${result} = ${res}`
     this.setState({ touched: false })
     setValue('')
     setHistory([...history, strHistory])
     setHistoryLSBounded(strHistory)
     return res
+  }
+
+  componentDidMount() {
+    const stateLS = getStateLS('cl')
+    if (stateLS) {
+      const { expression, touched } = stateLS
+      this.setState({
+        expression,
+        touched,
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    const { result, operator, value } = this.props
+    const { expression, touched } = this.state
+    const stateToLocalStorage = {
+      result,
+      operator,
+      value,
+      expression,
+      touched,
+    }
+    setStateLS('cl', stateToLocalStorage)
   }
 
   render() {

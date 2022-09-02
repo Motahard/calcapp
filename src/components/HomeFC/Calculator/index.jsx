@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import PropTypes from 'prop-types'
+
+import { getStateLS } from '@/utils/storage.utils'
 
 import Display from '@/components/HomeFC/Display'
 import Keypad from '@/components/HomeFC/Keypad'
@@ -12,11 +14,18 @@ import {
   HistoryControlContainer,
 } from '@/components/HomeFC/Calculator/styled'
 
-const Calculator = ({ historyFC, setHistoryFC }) => {
+const Calculator = ({ history, setHistory }) => {
   const [value, setValue] = useState('')
   const [result, setResult] = useState('0')
   const [operator, setOperator] = useState('')
   const [showHistory, setShowHistory] = useState(true)
+
+  useEffect(() => {
+    const { value, result, operator } = getStateLS('fc')
+    setValue(value)
+    setResult(result)
+    setOperator(operator)
+  }, [])
 
   return (
     <CalculatorContainer>
@@ -29,8 +38,8 @@ const Calculator = ({ historyFC, setHistoryFC }) => {
         <Keypad
           result={result}
           setResult={setResult}
-          history={historyFC}
-          setHistory={setHistoryFC}
+          history={history}
+          setHistory={setHistory}
           value={value}
           setValue={setValue}
           operator={operator}
@@ -44,9 +53,9 @@ const Calculator = ({ historyFC, setHistoryFC }) => {
       {showHistory && (
         <HistoryControlContainer>
           <History
-            history={historyFC}
+            history={history}
             showHistory={showHistory}
-            setHistory={setHistoryFC}
+            setHistory={setHistory}
           />
         </HistoryControlContainer>
       )}
@@ -55,8 +64,8 @@ const Calculator = ({ historyFC, setHistoryFC }) => {
 }
 
 Calculator.propTypes = {
-  historyFC: PropTypes.array,
-  setHistoryFC: PropTypes.func,
+  history: PropTypes.array,
+  setHistory: PropTypes.func,
 }
 
 export default Calculator

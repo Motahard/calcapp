@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import PropTypes from 'prop-types'
 
+import { getStateLS } from '@/utils/storage.utils'
+
 import Display from '@/components/HomeCL/Display'
 import Keypad from '@/components/HomeCL/Keypad'
 import History from '@/components/HomeCL/History'
@@ -47,8 +49,20 @@ export default class Calculator extends Component {
     })
   }
 
+  componentDidMount() {
+    const stateLS = getStateLS('cl')
+    if (stateLS) {
+      const { result, value, operator } = stateLS
+      this.setState({
+        result,
+        value,
+        operator,
+      })
+    }
+  }
+
   render() {
-    const { historyCL, setHistoryCL } = this.props
+    const { history, setHistory } = this.props
     const {
       result,
       value,
@@ -66,8 +80,8 @@ export default class Calculator extends Component {
           <Keypad
             result={result}
             setResult={this.setResult}
-            history={historyCL}
-            setHistory={setHistoryCL}
+            history={history}
+            setHistory={setHistory}
             value={value}
             setValue={this.setValue}
             operator={operator}
@@ -81,8 +95,8 @@ export default class Calculator extends Component {
         {showHistory && (
           <HistoryControlContainer>
             <History
-              history={historyCL}
-              setHistory={setHistoryCL}
+              history={history}
+              setHistory={setHistory}
               showHistory={showHistory}
             />
           </HistoryControlContainer>
@@ -93,6 +107,6 @@ export default class Calculator extends Component {
 }
 
 Calculator.propTypes = {
-  historyCL: PropTypes.array,
-  setHistoryCL: PropTypes.func,
+  history: PropTypes.array,
+  setHistory: PropTypes.func,
 }
