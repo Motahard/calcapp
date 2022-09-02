@@ -69,6 +69,7 @@ export default class Calculator extends Component {
       operator,
       showHistory,
     } = this.state
+
     return (
       <CalculatorContainer>
         <KeypadDisplayContainer>

@@ -162,7 +162,7 @@ export default class Keypad extends Component {
     if (expression) {
       this.setState({ expression: false })
     }
-    console.log(res)
+
     const strHistory = `${value} ${operator} ${result} = ${res}`
     this.setState({ touched: false })
     setValue('')
